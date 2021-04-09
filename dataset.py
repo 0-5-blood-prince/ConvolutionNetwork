@@ -2,7 +2,10 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+from keras.preprocessing.image import img_to_array
+from keras.preprocessing.image import array_to_img
 import cv2
+import csv
 labels = ["Amphibia","Animalia","Arachnida","Aves","Fungi","Insecta","Mammalia","Mollusca","Plantae","Reptilia"]
 cwd = os.getcwd()
 Dataset_Path = os.path.join(cwd , 'inaturalist_12K')
@@ -36,7 +39,7 @@ def loadImages():
 def preprocess(data, height, width):
     dim = (width, height)
     resdata = []
-    for i in range(len(data[:3])):
+    for i in range(len(data[:1])):
         
         try:
             img = cv2.imread(data[i],cv2.IMREAD_UNCHANGED)
@@ -62,10 +65,10 @@ def dataset(width,height):
     l = len(train_data)
     while(i<l):
         if i  <= cum + int((0.9)*classcounts[c]):
-            train_input.append(np.asarray(train_data[i]))
+            train_input.append(img_to_array(train_data[i]))
             train_output.append(trainclasses[i])
         else:
-            val_input.append(np.asarray(train_data[i]))
+            val_input.append(img_to_array(train_data[i]))
             val_output.append(trainclasses[i])
         i+=1
         if i== cum + classcounts[c]:
@@ -73,7 +76,7 @@ def dataset(width,height):
             c+=1
     test_input = []
     for i in range(len(test_data)):
-        test_input.append(np.asarray(test_data[i]))
+        test_input.append(img_to_array(test_data[i]))
         test_output.append(testclasses[i])
     train_output = np.eye(10)[train_output]
     val_output = np.eye(10)[val_output]
@@ -88,3 +91,15 @@ def dataset(width,height):
         'Xtest' : test_input,
         'Ytest' :test_output
     }
+def flat(X):
+    X_f = []
+    for x in X:
+        X_f.append(x.flatten())
+    return X_f
+def savedata(d): 
+    with open('train_data.txt','w') as f:
+        csvwriter = csv.writer(f)
+        csvwriter.writerows(flat(d['Xtrain']))
+d = dataset(256,256)
+print(d['Xtrain'])
+    
