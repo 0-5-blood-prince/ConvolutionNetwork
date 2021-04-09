@@ -3,6 +3,7 @@ from keras.layers import Dense, Conv2D, Flatten
 
 class ConvNet:
     def __init__(self, numFilters, filterSize, filterConf = 'same'):
+        return
 
     def initModel(self, numFilters, filterSize, filterConf = 'same'):
         model = Sequential()
@@ -10,7 +11,7 @@ class ConvNet:
         model.add(Activation('relu'))
         model.add(MaxPooling2D(pool_size=(2, 2)))        
         
-        for(l in range(4)):
+        for l in range(4):
             model.add(Conv2D(numFilters, (filterSize, filterSize)))
             model.add(Activation('relu'))
             model.add(MaxPooling2D(pool_size=(2, 2)))
