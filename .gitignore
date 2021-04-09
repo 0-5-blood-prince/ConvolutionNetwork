@@ -4,3 +4,4 @@ nature_12K/
 inaturalist_12K/
 *.ipynb_checkpoints
 *.pyc
+__pycache__/
