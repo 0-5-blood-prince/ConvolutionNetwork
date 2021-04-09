@@ -39,12 +39,12 @@ def loadImages():
 def preprocess(data, height, width):
     dim = (width, height)
     resdata = []
-    for i in range(len(data[:1])):
+    for i in range(len(data[:2000])):
         
         try:
             img = cv2.imread(data[i],cv2.IMREAD_UNCHANGED)
             res = cv2.resize(img, dim , interpolation=cv2.INTER_LINEAR)
-            resdata.append(res)
+            resdata.append(np.asarray(res))
         except Exception as e:
             print(data[i])
             print(str(e))
@@ -65,10 +65,10 @@ def dataset(width,height):
     l = len(train_data)
     while(i<l):
         if i  <= cum + int((0.9)*classcounts[c]):
-            train_input.append(img_to_array(train_data[i]))
+            train_input.append(train_data[i])
             train_output.append(trainclasses[i])
         else:
-            val_input.append(img_to_array(train_data[i]))
+            val_input.append(train_data[i])
             val_output.append(trainclasses[i])
         i+=1
         if i== cum + classcounts[c]:
@@ -76,20 +76,20 @@ def dataset(width,height):
             c+=1
     test_input = []
     for i in range(len(test_data)):
-        test_input.append(img_to_array(test_data[i]))
+        test_input.append(test_data[i])
         test_output.append(testclasses[i])
     train_output = np.eye(10)[train_output]
     val_output = np.eye(10)[val_output]
-    train_output = np.eye(10)[test_output]
+    test_output = np.eye(10)[test_output]
     
     L = len(train_data)
     return {
-        'Xtrain' : train_input, 
-        'Ytrain' : train_output,
-        'Xval' : val_input,
-        'Yval' : val_output,
-        'Xtest' : test_input,
-        'Ytest' :test_output
+        'Xtrain' : np.array(train_input), 
+        'Ytrain' : np.array(train_output),
+        'Xval' : np.array(val_input),
+        'Yval' : np.array(val_output),
+        'Xtest' : np.array(test_input),
+        'Ytest' :np.array(test_output)
     }
 def flat(X):
     X_f = []
@@ -100,6 +100,6 @@ def savedata(d):
     with open('train_data.txt','w') as f:
         csvwriter = csv.writer(f)
         csvwriter.writerows(flat(d['Xtrain']))
-d = dataset(256,256)
-print(d['Xtrain'])
+# d = dataset(256,256)
+# print(d['Xtrain'])
     

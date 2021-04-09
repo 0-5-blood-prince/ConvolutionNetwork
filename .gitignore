@@ -3,3 +3,4 @@ nature_12K/
 .vscode/settings.json
 inaturalist_12K/
 *.ipynb_checkpoints
+*.pyc
