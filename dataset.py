@@ -6,6 +6,9 @@ from keras.preprocessing.image import img_to_array
 from keras.preprocessing.image import array_to_img
 import cv2
 import csv
+
+DATSET_SIZE = 10000
+
 labels = ["Amphibia","Animalia","Arachnida","Aves","Fungi","Insecta","Mammalia","Mollusca","Plantae","Reptilia"]
 cwd = os.getcwd()
 Dataset_Path = os.path.join(cwd , 'inaturalist_12K')
@@ -39,11 +42,14 @@ def loadImages():
 def preprocess(data, height, width):
     dim = (width, height)
     resdata = []
-    for i in range(len(data[:2000])):
+    for i in range(len(data[:DATSET_SIZE])):
         
         try:
             img = cv2.imread(data[i],cv2.IMREAD_UNCHANGED)
             res = cv2.resize(img, dim , interpolation=cv2.INTER_LINEAR)
+            #if image is greyscale, convert it to rgb
+            if(len(res.shape) != 3):
+                res = cv2.cvtColor(res,cv2.COLOR_GRAY2RGB)
             resdata.append(np.asarray(res))
         except Exception as e:
             print(data[i])
