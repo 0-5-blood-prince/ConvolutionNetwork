@@ -39,8 +39,7 @@ def loadImages():
 def preprocess(data, height, width):
     dim = (width, height)
     resdata = []
-    for i in range(len(data[:2000])):
-        
+    for i in range(len(data)):
         try:
             img = cv2.imread(data[i],cv2.IMREAD_UNCHANGED)
             res = cv2.resize(img, dim , interpolation=cv2.INTER_LINEAR)
@@ -65,12 +64,12 @@ def dataset(width,height):
     
     L = len(train_data)
     return {
-        'Xtrain' : np.array(train_data), 
-        'Ytrain' : np.array(train_output),
+        'Xtrain' : (train_data), 
+        'Ytrain' : (train_output),
         # 'Xval' : np.array(val_input),
         # 'Yval' : np.array(val_output),
-        'Xtest' : np.array(test_data),
-        'Ytest' :np.array(test_output)
+        'Xtest' :(test_data),
+        'Ytest' :(test_output)
     }
 def flat(X):
     X_f = []
