@@ -54,41 +54,22 @@ def dataset(width,height):
     trainfiles , trainclasses , testfiles , testclasses, classcounts = loadImages()
     train_data = preprocess(trainfiles, height,width)
     test_data = preprocess(testfiles, height,width)
-    train_input = []
-    val_input = []
-    train_output = []
-    val_output = []
-    test_output = []
-    i = 0
-    cum = 0
-    c = 0
-    l = len(train_data)
-    while(i<l):
-        if i  <= cum + int((0.9)*classcounts[c]):
-            train_input.append(train_data[i])
-            train_output.append(trainclasses[i])
-        else:
-            val_input.append(train_data[i])
-            val_output.append(trainclasses[i])
-        i+=1
-        if i== cum + classcounts[c]:
-            cum += classcounts[c]
-            c+=1
-    test_input = []
-    for i in range(len(test_data)):
-        test_input.append(test_data[i])
-        test_output.append(testclasses[i])
-    train_output = np.eye(10)[train_output]
-    val_output = np.eye(10)[val_output]
-    test_output = np.eye(10)[test_output]
+    # train_input = []
+    # val_input = []
+    # train_output = []
+    # val_output = []
+    # test_output = []
+    # test_input = []
+    train_output = np.eye(10)[trainclasses]
+    test_output = np.eye(10)[testclasses]
     
     L = len(train_data)
     return {
-        'Xtrain' : np.array(train_input), 
+        'Xtrain' : np.array(train_data), 
         'Ytrain' : np.array(train_output),
-        'Xval' : np.array(val_input),
-        'Yval' : np.array(val_output),
-        'Xtest' : np.array(test_input),
+        # 'Xval' : np.array(val_input),
+        # 'Yval' : np.array(val_output),
+        'Xtest' : np.array(test_data),
         'Ytest' :np.array(test_output)
     }
 def flat(X):
