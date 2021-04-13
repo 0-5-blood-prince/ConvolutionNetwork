@@ -9,3 +9,5 @@ __pycache__/
 wandb/
 models/
 !models/jfgs0vwk/driven-sweep-89
+PartB_models/*
+PartB_models.zip
