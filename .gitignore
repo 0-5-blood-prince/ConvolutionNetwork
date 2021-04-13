@@ -8,3 +8,4 @@ __pycache__/
 __pycache__/
 wandb/
 models/
+!models/jfgs0vwk/driven-sweep-89
