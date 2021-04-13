@@ -7,3 +7,4 @@ inaturalist_12K/
 __pycache__/
 __pycache__/
 wandb/
+models/
