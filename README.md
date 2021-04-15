@@ -1,5 +1,5 @@
-# ConvolutionNetwork
-
+# Convolutional Neural Network
+Libraries and Environment : Cuda version 11.3, Tensorflow 2.4, CuDNN 8.1, GCC 7.3.1, python 3.8.5.
 ## Part A
 ### Question1,2,3
 The answers were mentioned in report.
