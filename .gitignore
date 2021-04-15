@@ -11,3 +11,6 @@ models/
 !models/jfgs0vwk/driven-sweep-89
 PartB_models/*
 PartB_models.zip
+PartC_yolo/videos/BurningMan.mp4
+PartC_yolo/videos/flood.mp4
+PartC_yolo/videos/floodToDetect.mp4
